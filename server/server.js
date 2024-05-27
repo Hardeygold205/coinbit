@@ -1,27 +1,30 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
 const cors = require('cors');
-require('dotenv').config();
-
+require('dotenv').config({ debug: true });
 
 const mongourl = process.env.MONGODB_URL;
 
 const app = express();
 const PORT = process.env.PORT || 5002;
 
-app.use(cors({
-    origin: ['http://localhost:5173', 'http://172.20.10.3:5173'],
+const corsOptions = {
+    origin: '*',
     optionsSuccessStatus: 200
-}));
+};
+
+app.use(cors(corsOptions));
+
 
 app.use(express.json());
 
-mongoose.connect(mongourl, {
+console.log('Connecting to MongoDB...');
+mongoose.connect(mongourl,  {
     //useNewUrlParser: true,
     //useUnifiedTopology: true,
-    tls: true,
-    tlsInsecure: true
+   // tls: true,
+   // tlsInsecure: true,
+
 })
     .then(() => console.log('MongoDB connected'))
     .catch(err => {
@@ -37,6 +40,7 @@ const Data = mongoose.model('Data', DataSchema);
 
 app.post('/input', async (req, res) => {
     try {
+        console.log('Received input:', req.body);
         const { inputValue } = req.body;
         if (!inputValue) {
             return res.status(400).send('Input value is required');
