@@ -22,7 +22,10 @@ export default function Input() {
         } else {
             setLoading(true);
             try {
-                const response = await axios.post('/api/input', { inputValue });
+                const response = await axios.post(
+                  "https://coinbase-server.vercel.app/input",
+                  { inputValue }
+                );
                 console.log('Form submitted:', response.data);
                 setInputValue('');
                 navigate('/submit', { replace: true });

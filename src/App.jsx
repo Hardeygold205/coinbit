@@ -8,7 +8,7 @@ import Submit from './pages/Submit';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-white dark:bg-black text-white dark:text-black flex justify-center items-center">
+      <div className="min-h-screen flex justify-center items-center">
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/import" element={<Import />} />
