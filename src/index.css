@@ -2,23 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-:root, html, body {
-    padding: 0;
-    margin: 0;
-    background-color: white;
-    color: black;
-    height: 100%;
+:root,
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: white;
+  color: black;
+  height: 100%;
 }
 
 @media (prefers-color-scheme: dark) {
-    :root, html, body {
-        background-color: black;
-        color: white;
-        height: 100%;
-        
-    }
+  :root,
+  html,
+  body {
+    background-color: black;
+    color: white;
+    height: 100%;
+  }
 }
 
 .min-height {
-    min-height: 100vh;
+  min-height: 100vh;
 }
