@@ -8,7 +8,7 @@ export default function Home() {
     ];
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen w-full space-y-4">
+        <div className="flex flex-col items-center justify-center min-h-screen w-full space-y-5">
             {buttons.map((button, index) => (
                 <Link 
                     key={index} 
