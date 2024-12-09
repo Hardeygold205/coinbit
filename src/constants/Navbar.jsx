@@ -18,16 +18,17 @@ export default function Navbar() {
             CoinBit
           </Link>
         </div>
-        <div className="flex-none">
-          <div>
-            {isConnected ? (
+        <div className="flex-none flex items-center gap-x-4">
+          {isConnected ? (
+            <>
               <appkit-account-button />
-            ) : (
-              <appkit-connect-button />
-            )}
-          </div>
+            </>
+          ) : (
+            <appkit-connect-button />
+          )}
         </div>
       </div>
+      
     </div>
   );
 }
