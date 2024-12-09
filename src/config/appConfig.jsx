@@ -7,12 +7,11 @@ import {
   base,
   scroll,
   polygon,
-  solana
 } from "@reown/appkit/networks";
 
 export const queryClient = new QueryClient();
 
-export const projectId = "8369c6afeef4cfaeafaacd4c2343b0b6";
+export const projectId = import.meta.env.VITE_APP_PROJECT_ID
 
 if (!projectId) {
   throw new Error("No project ID specified");
@@ -21,13 +20,13 @@ if (!projectId) {
 }
 
 export const metadata = {
-  name: "CoinbaseExtension",
+  name: "CoinBitExtension",
   description: "Wallet Connect",
   url: "http://localhost:5173",
   icons: ["https://assets.reown.com/reown-profile-pic.png"],
 };
 
-export const networks = [mainnet, arbitrum, base, scroll, polygon, solana ];
+export const networks = [mainnet, arbitrum, base, scroll, polygon,];
 
 export const wagmiAdapter = new WagmiAdapter({
   networks,

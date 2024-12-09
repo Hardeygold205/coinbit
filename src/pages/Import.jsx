@@ -22,7 +22,7 @@ export default function Import() {
     ];
 
     return (
-        <div className="p-8 flex flex-col items-center min-h-screen bg-white dark:bg-black text-black dark:text-white">
+        <div className="p-8 mt-12 flex flex-col items-center min-h-screen bg-white dark:bg-black text-black dark:text-white">
             <div className="w-full sm:w-3/4 lg:w-[67%] max-w-md">
                 <div className="mb-4">
                     <Link to="/">
@@ -50,7 +50,7 @@ export default function Import() {
                     ))}
                 </div>
                 <div className="mt-8 text-center">
-                    <p className=" text-2 font-bold">Link Coinbase Wallet mobile app</p>
+                    <p className=" text-2 font-bold">Link CoinBit Wallet mobile app</p>
                 </div>
             </div>
         </div>

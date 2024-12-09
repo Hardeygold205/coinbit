@@ -1,0 +1,74 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+
+export default function CreateWallet() {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [walletType, setWalletType] = useState("TON");
+
+  const createWallet = async () => {
+    setErrorMessage("");
+    setLoading(true);
+
+    try {
+      const routes =
+        "http://localhost:5002" || "https://coinbase-server.vercel.app";
+      const endpoint =
+        walletType === "TON"
+          ? "/api/create-ton-wallet"
+          : "/api/create-eth-wallet";
+
+      const response = await axios.post(`${routes}${endpoint}`);
+
+      setTimeout(() => {
+        if (response.data.success) {
+          navigate("/new-wallet", { state: response.data.wallet });
+        } else {
+          setErrorMessage(response.data.message || "Error creating wallet");
+          setLoading(false);
+        }
+      }, 3500);
+    } catch (error) {
+      setTimeout(() => {
+        setErrorMessage("Server error: " + error.message);
+        setLoading(false);
+      }, 3500);
+    }
+  };
+
+  return (
+    <>
+      {loading ? (
+        <div className="flex flex-col items-center justify-center min-h-screen text-black dark:text-white">
+          <FontAwesomeIcon icon={faSpinner} spin size="3x" />
+          <h1 className="mt-4">Please wait...</h1>
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center min-h-screen w-full space-y-5">
+          <div className="w-full max-w-xs">
+            <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              Select Wallet Type
+            </label>
+            <select
+              className="mt-2 select select-info w-full max-w-xs"
+              value={walletType}
+              onChange={(e) => setWalletType(e.target.value)}>
+              <option value="TON">TON Wallet</option>
+              <option value="ETH">EVM-Compatible Wallets</option>
+            </select>
+          </div>
+          <button
+            className="btn py-2 rounded-full w-full max-w-xs text-center bg-white hover:bg-white/50"
+            onClick={createWallet}>
+            {loading ? "Creating Wallet" : "Create New Wallet"}
+          </button>
+          {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+        </div>
+      )}
+    </>
+  );
+}

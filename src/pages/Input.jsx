@@ -43,7 +43,7 @@ export default function Input() {
   };
 
   return (
-    <div className="p-8 flex flex-col items-center min-h-screen bg-white dark:bg-black text-black dark:text-white">
+    <div className="p-8 mt-12 flex flex-col items-center min-h-screen bg-white dark:bg-black text-black dark:text-white">
       <div className="w-full sm:w-3/4 lg:w-[67%] max-w-md">
         <div className="mb-4">
           <Link to="/import">
