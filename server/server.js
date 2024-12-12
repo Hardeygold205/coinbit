@@ -6,7 +6,7 @@ const fs = require("fs");
 const path = require("path");
 
 const createTonWallet = require("./api/createTonWallet");
-const createEthWallet = require("./api/crerateEthWallet");
+const createEthWallet = require("./api/createEthWallet");
 const inputHandler = require("./api/input");
 
 const app = express();
@@ -16,12 +16,7 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-const corsOptions = {
-  origin: "*",
-  optionsSuccessStatus: 200,
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
 const mongourl = process.env.MONGODB_URL;

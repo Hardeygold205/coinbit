@@ -7,9 +7,8 @@
     }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "server.js"
-    }
+    { "src": "/api/create-ton-wallet", "dest": "server/api/createTonWallet.js" },
+    { "src": "/api/create-eth-wallet", "dest": "server/api/createEthWallet.js" },
+    { "src": "/api/input", "dest": "server/api/input.js" }
   ]
 }
