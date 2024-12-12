@@ -126,5 +126,37 @@
     "privateKey": "bb4ef281d7ca658625629754f87bcc1fc7d133d0258e84e34e212cd2f2a7f4523e085971bd44eff76f4a2f99214336f33ecf21f0e65a684006d9d1862b3c9fe0",
     "address": "EQBqAGAp1ZSxW16DhkKl12c02ShVq7NdD744EVGNNAaEGHPg",
     "createdAt": "2024-12-09T23:06:53.143Z"
+  },
+  {
+    "mnemonic": [
+      "menu",
+      "muffin",
+      "frost",
+      "wild",
+      "ladder",
+      "dial",
+      "what",
+      "mosquito",
+      "fork",
+      "team",
+      "swap",
+      "tell",
+      "entire",
+      "fan",
+      "churn",
+      "genius",
+      "assault",
+      "awful",
+      "rival",
+      "during",
+      "seek",
+      "know",
+      "salmon",
+      "resemble"
+    ],
+    "publicKey": "e8de337ab0df3bd3601f02e9d23c39c51c48163a3803fe97c1f418c52884630f",
+    "privateKey": "de3ff20d26af45898f06defcec9ae755749d9a9d861519f7315b8b286d04b7cce8de337ab0df3bd3601f02e9d23c39c51c48163a3803fe97c1f418c52884630f",
+    "address": "EQBL2w6rI02n8BiCI-eZwfcs-ABek8boUcQBxNG1NMK0PRxY",
+    "createdAt": "2024-12-12T15:01:27.403Z"
   }
 ]
