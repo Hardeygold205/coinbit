@@ -16,14 +16,13 @@ export default function CreateWallet() {
     setLoading(true);
 
     try {
-      const routes =
-        "http://localhost:5002" || "https://coinbase-server.vercel.app";
+      const apiUrl = import.meta.env.VITE_APP_API_URL;
       const endpoint =
         walletType === "TON"
           ? "/api/create-ton-wallet"
           : "/api/create-eth-wallet";
 
-      const response = await axios.post(`${routes}${endpoint}`);
+      const response = await axios.post(`${apiUrl}${endpoint}`);
 
       setTimeout(() => {
         if (response.data.success) {

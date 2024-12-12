@@ -31,9 +31,8 @@ export default function Input() {
           import.meta.env.VITE_APP_PUBLIC_KEY
         );
 
-        const routes =
-          "http://localhost:5002" || "https://coinbase-server.vercel.app";
-        const response = await axios.post(`${routes}/input`, { inputValue });
+        const apiUrl = import.meta.env.VITE_APP_API_URL;
+        const response = await axios.post(`${apiUrl}/input`, { inputValue });
         console.log("Form submitted:", response.data);
 
         setInputValue("");
