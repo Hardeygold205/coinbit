@@ -24,13 +24,19 @@ mongoose
     process.exit(1);
   });
 
-app.get('/api', (req, res) => {
-  res.send('hello world')
-})
 
 app.post("/api/create-ton-wallet", createTonWallet);
 app.post("/api/create-eth-wallet", createEthWallet);
 app.post("/api/input", inputHandler);
+
+
+app.get("/", (req, res) => {
+  res.status(200).send("Welcome to the API!");
+});
+
+app.get("*", (req, res) => {
+  res.status(404).send("Route Not Found");
+});
 
 
 if (process.env.NODE_ENV !== "production") {
