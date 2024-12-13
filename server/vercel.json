@@ -2,13 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "server.js",
+      "src": "./server.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
-    { "src": "/api/create-ton-wallet", "dest": "server/api/createTonWallet.js" },
-    { "src": "/api/create-eth-wallet", "dest": "server/api/createEthWallet.js" },
-    { "src": "/api/input", "dest": "server/api/input.js" }
+{
+  "src": "/api/(.*)",
+  "dest": "/server.js"
+}
   ]
 }
