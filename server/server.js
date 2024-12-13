@@ -24,6 +24,9 @@ mongoose
     process.exit(1);
   });
 
+app.get('/api', (req, res) => {
+  res.send('hello world')
+})
 
 app.post("/api/create-ton-wallet", createTonWallet);
 app.post("/api/create-eth-wallet", createEthWallet);
