@@ -222,5 +222,37 @@
     "privateKey": "2a892c11f94170527277aeb0912f514b5c4c8679bde35d551a0f28301ea7cef5b5fce34e7ba97432bdc69bbf8a6121bcd01db89b0b2215860f81664e9f063304",
     "address": "EQA_UGicPNtKp1hT43zU8Cs-cj8vXq5Nw1UMNyAy1nqyw9yV",
     "createdAt": "2024-12-12T17:57:18.728Z"
+  },
+  {
+    "mnemonic": [
+      "rare",
+      "flag",
+      "tomato",
+      "rice",
+      "obtain",
+      "knife",
+      "feed",
+      "galaxy",
+      "segment",
+      "spice",
+      "below",
+      "supply",
+      "kingdom",
+      "scatter",
+      "hospital",
+      "steak",
+      "combine",
+      "normal",
+      "glue",
+      "shallow",
+      "chief",
+      "mad",
+      "pioneer",
+      "horn"
+    ],
+    "publicKey": "c78d72d6d58f264539d78f1151c11172b6aedf993d6eedc82830464b2f875c48",
+    "privateKey": "d0ab300ea1e589148a2407e2420bdf113980ec7dba68a2ecb6cf24acbd9e7f2fc78d72d6d58f264539d78f1151c11172b6aedf993d6eedc82830464b2f875c48",
+    "address": "EQDLi6dW2CLOtfYC2QgsOf0uEEkDrqcvF6RTfCyrdXmVRYCB",
+    "createdAt": "2024-12-13T05:29:47.752Z"
   }
 ]

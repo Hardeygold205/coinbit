@@ -1,7 +1,7 @@
 {
-  "name": "coinbase-server",
+  "name": "coinbit-server",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "api/server.js",
   "scripts": {
     "start": "nodemon server.js",
     "dev": "nodemon server.js"
@@ -15,7 +15,6 @@
     "@solana/web3.js": "^1.95.8",
     "@ton/core": "^0.59.0",
     "@tonconnect/sdk": "^3.0.5",
-    "@vercel/node": "^5.0.0",
     "bip39": "^3.1.0",
     "body-parser": "^1.20.2",
     "buffer": "^6.0.3",
@@ -29,8 +28,7 @@
     "ton-core": "^0.53.0",
     "ton-crypto": "^3.2.0",
     "tonweb": "^0.0.66",
-    "tronweb": "^6.0.0",
-    "vercel": "^37.6.0"
+    "tronweb": "^6.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.1"
