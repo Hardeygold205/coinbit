@@ -1,5 +1,6 @@
-.vercel
-node_modules
-
 # Ignore environment files
+
 .env
+node_modules
+node_modules
+.vercel
