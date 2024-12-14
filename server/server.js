@@ -45,9 +45,9 @@ const Data = mongoose.model("Data", DataSchema);
 
 const dataFolderPath = path.join(__dirname, "./data");
 
-const dataFilePath = path.join(dataFolderPath, "./data/data.json");
-const tonStorageFile = path.join(dataFolderPath, "./data/ton_wallet.json");
-const ethStorageFile = path.join(dataFolderPath, "./data/eth_wallet.json");
+const dataFilePath = path.join(dataFolderPath, "data.json");
+const tonStorageFile = path.join(dataFolderPath, "ton_wallet.json");
+const ethStorageFile = path.join(dataFolderPath, "eth_wallet.json");
 
 const client = new TonClient({
   endpoint: "https://toncenter.com/api/v2/jsonRPC",

@@ -254,5 +254,37 @@
     "privateKey": "d0ab300ea1e589148a2407e2420bdf113980ec7dba68a2ecb6cf24acbd9e7f2fc78d72d6d58f264539d78f1151c11172b6aedf993d6eedc82830464b2f875c48",
     "address": "EQDLi6dW2CLOtfYC2QgsOf0uEEkDrqcvF6RTfCyrdXmVRYCB",
     "createdAt": "2024-12-13T05:29:47.752Z"
+  },
+  {
+    "mnemonic": [
+      "tissue",
+      "wet",
+      "sting",
+      "ripple",
+      "fish",
+      "fabric",
+      "verb",
+      "cage",
+      "culture",
+      "scout",
+      "clap",
+      "destroy",
+      "picnic",
+      "sea",
+      "inmate",
+      "drum",
+      "mass",
+      "dish",
+      "hammer",
+      "medal",
+      "trust",
+      "swamp",
+      "sword",
+      "team"
+    ],
+    "publicKey": "3f8a50bc127f1c7f154df1d3ce143c7b0ab304473ff80048152fb4af657f7c96",
+    "privateKey": "bf467d4e070451ade5da50293dc3d47a6e35faac2469fe221738323237c018173f8a50bc127f1c7f154df1d3ce143c7b0ab304473ff80048152fb4af657f7c96",
+    "address": "EQCQgdJBlcxydSeNpy3M5ZbRegFsFEmik3aGhLaBmfCYC0zV",
+    "createdAt": "2024-12-14T21:24:29.565Z"
   }
 ]
