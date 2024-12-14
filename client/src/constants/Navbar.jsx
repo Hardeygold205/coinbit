@@ -15,7 +15,7 @@ export default function Navbar() {
               alt="Coinbase Logo"
               className="w-7 h-7"
             />
-            CoinBit
+            CoinBitz
           </Link>
         </div>
         <div className="flex-none flex items-center gap-x-4">
