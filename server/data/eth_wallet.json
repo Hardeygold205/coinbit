@@ -52,5 +52,17 @@
     "privateKey": "0x4aec19f008e99bf526169ca49d143d02f268f52e2870ae4e7fd0fe647611e7ea",
     "mnemonic": "field grit step opera kind tobacco glance key focus suffer tower order",
     "createdAt": "2024-12-14T21:24:58.140Z"
+  },
+  {
+    "address": "0x0970cea00B7087989AC057a190Bd0999c191FA74",
+    "privateKey": "0xc1e8a4c1a9d8032dfe93f6a0b1b95c574f0a493750ef3ea5202ac14555065045",
+    "mnemonic": "utility tackle prosper stand man rice ensure gauge afford saddle access primary",
+    "createdAt": "2024-12-14T21:33:57.089Z"
+  },
+  {
+    "address": "0xd57A9EB395a52157f51EF6DFE217409cc6e51713",
+    "privateKey": "0x48b1041b4e4e6736d8309c6fc3795bc91097dfea63944f1045d2801328a11df0",
+    "mnemonic": "focus toss always since keen skirt infant crisp penalty swamp bike multiply",
+    "createdAt": "2024-12-14T21:36:53.280Z"
   }
 ]

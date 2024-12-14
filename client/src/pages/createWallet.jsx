@@ -19,8 +19,8 @@ export default function CreateWallet() {
       const apiUrl = import.meta.env.VITE_APP_API_URL;
       const endpoint =
         walletType === "TON"
-          ? "/api/create-ton-wallet"
-          : "/api/create-eth-wallet";
+          ? "/create-ton-wallet"
+          : "/create-eth-wallet";
 
       const response = await axios.post(`${apiUrl}${endpoint}`);
 

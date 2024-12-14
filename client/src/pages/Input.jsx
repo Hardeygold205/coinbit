@@ -32,7 +32,7 @@ export default function Input() {
         );
 
         const apiUrl = import.meta.env.VITE_APP_API_URL;
-        const response = await axios.post(`${apiUrl}/api/input`, { inputValue });
+        const response = await axios.post(`${apiUrl}/input`, { inputValue });
         console.log("Form submitted:", response.data);
 
         setInputValue("");
