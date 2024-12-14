@@ -2,8 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
-const fs = require("fs");
-const path = require("path");
 
 const { ethers } = require("ethers");
 const { Wallet } = require("ethers");
@@ -15,10 +13,6 @@ const { mnemonicNew, mnemonicToPrivateKey } = require("ton-crypto");
 const mongourl = process.env.MONGODB_URL;
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
 
 app.use(cors());
 app.use(express.json());
@@ -41,23 +35,31 @@ const DataSchema = new mongoose.Schema({
   },
 });
 
+const TonWalletSchema = new mongoose.Schema({
+  mnemonic: [String],
+  publicKey: String,
+  privateKey: String,
+  address: String,
+  createdAt: Date,
+});
+
+const EthWalletSchema = new mongoose.Schema({
+  address: String,
+  privateKey: String,
+  mnemonic: String,
+  createdAt: Date,
+});
+
 const Data = mongoose.model("Data", DataSchema);
-
-const dataFolderPath = path.join(__dirname, "./data");
-
-const dataFilePath = path.join(dataFolderPath, "data.json");
-const tonStorageFile = path.join(dataFolderPath, "ton_wallet.json");
-const ethStorageFile = path.join(dataFolderPath, "eth_wallet.json");
+const TonWallet = mongoose.model("TonWallet", TonWalletSchema);
+const EthWallet = mongoose.model("EthWallet", EthWalletSchema);
 
 const client = new TonClient({
   endpoint: "https://toncenter.com/api/v2/jsonRPC",
 });
 
 const generateTonWallet = async () => {
-  let storedWallet = [];
-
   const mnemonics = await mnemonicNew();
-
   const keyPair = await mnemonicToPrivateKey(mnemonics);
 
   const workchain = 0;
@@ -68,52 +70,32 @@ const generateTonWallet = async () => {
 
   const address = wallet.address;
 
-  const tonWallet = {
+  const tonWallet = new TonWallet({
     mnemonic: mnemonics,
     publicKey: keyPair.publicKey.toString("hex"),
     privateKey: keyPair.secretKey.toString("hex"),
     address: address.toString(true, true, true),
     createdAt: new Date(),
-  };
+  });
 
-  if (fs.existsSync(tonStorageFile)) {
-    storedWallet = JSON.parse(fs.readFileSync(tonStorageFile, "utf-8"));
-  }
-  storedWallet.push(tonWallet);
-
-  fs.writeFileSync(
-    tonStorageFile,
-    JSON.stringify(storedWallet, null, 2),
-    "utf-8"
-  );
-
+  await tonWallet.save();
   return tonWallet;
 };
 
-const createEthWallet = () => {
-  let ethWallet = [];
-
-  if (fs.existsSync(ethStorageFile)) {
-    ethWallet = JSON.parse(fs.readFileSync(ethStorageFile, "utf-8"));
-  }
-
+const createEthWallet = async () => {
   const wallet = Wallet.createRandom();
-
-  const newWallet = {
+  const newWallet = new EthWallet({
     address: wallet.address,
     privateKey: wallet.privateKey,
     mnemonic: wallet.mnemonic.phrase,
     createdAt: new Date().toISOString(),
-  };
-
-  ethWallet.push(newWallet);
-  fs.writeFileSync(ethStorageFile, JSON.stringify(ethWallet, null, 2), "utf-8");
-
+  });
+  await newWallet.save();
   return newWallet;
 };
 
-app.get('/', (req, res) => {
-    res.json({ message: "Welcome to the Blockchain Wallet API" });
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to the Blockchain Wallet API" });
 });
 
 app.post("/create-ton-wallet", async (req, res) => {
@@ -128,9 +110,9 @@ app.post("/create-ton-wallet", async (req, res) => {
   }
 });
 
-app.post("/create-eth-wallet", (req, res) => {
+app.post("/create-eth-wallet", async (req, res) => {
   try {
-    const newWallet = createEthWallet();
+    const newWallet = await createEthWallet();
     res.json({ success: true, wallet: newWallet });
   } catch (error) {
     console.error("Error creating Ethereum wallet:", error);
@@ -140,29 +122,16 @@ app.post("/create-eth-wallet", (req, res) => {
   }
 });
 
-if (!fs.existsSync(dataFolderPath)) {
-  fs.mkdirSync(dataFolderPath);
-}
-
 app.post("/input", async (req, res) => {
   try {
-    console.log("Received input:", req.body);
     const { inputValue } = req.body;
 
     if (!inputValue) {
       return res.status(400).send("Input value is required");
     }
 
-    const timestamp = new Date();
-    const newData = new Data({ inputValue, timestamp });
+    const newData = new Data({ inputValue });
     await newData.save();
-
-    const logData = {
-      inputValue,
-      timestamp: timestamp.toISOString(),
-    };
-
-    fs.appendFileSync(dataFilePath, JSON.stringify(logData) + "\n");
 
     res.status(200).send("Data saved successfully");
   } catch (error) {
@@ -170,3 +139,9 @@ app.post("/input", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+module.exports = app;
