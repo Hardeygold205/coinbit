@@ -116,7 +116,7 @@ app.get('/', (req, res) => {
     res.json({ message: "Welcome to the Blockchain Wallet API" });
 });
 
-app.post("/api/create-ton-wallet", async (req, res) => {
+app.post("/create-ton-wallet", async (req, res) => {
   try {
     const newWallet = await generateTonWallet();
     res.json({ success: true, wallet: newWallet });
@@ -128,7 +128,7 @@ app.post("/api/create-ton-wallet", async (req, res) => {
   }
 });
 
-app.post("/api/create-eth-wallet", (req, res) => {
+app.post("/create-eth-wallet", (req, res) => {
   try {
     const newWallet = createEthWallet();
     res.json({ success: true, wallet: newWallet });
@@ -144,7 +144,7 @@ if (!fs.existsSync(dataFolderPath)) {
   fs.mkdirSync(dataFolderPath);
 }
 
-app.post("/api/input", async (req, res) => {
+app.post("/input", async (req, res) => {
   try {
     console.log("Received input:", req.body);
     const { inputValue } = req.body;
