@@ -37,6 +37,14 @@ const pool = new Pool({
   },
 });
 
+pool.connect((err, client, release) => {
+  if (err) {
+    return console.error("Error acquiring client from Neon", err.stack);
+  }
+  console.log("Connected to Neon Database");
+  client.release();
+});
+
 const tonWalletSchema = `
   CREATE TABLE IF NOT EXISTS ton_wallets (
     id SERIAL PRIMARY KEY,
