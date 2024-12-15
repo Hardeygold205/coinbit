@@ -3,5 +3,11 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  optimizeDeps: {},
+  optimizeDeps: {
+    include: ["eventemitter3"],
+    exclude: ["'ccip-AUVA6B3H'"],
+  },
+  build: {
+    outDir: "dist",
+  },
 });
