@@ -124,7 +124,7 @@ export default function Home() {
                 <Link
                   key={index}
                   to={button.link}
-                  className={`btn btn-active ${button.color} ${button.bgColor} py-2 mb-3 rounded-full w-full max-w-xs text-center`}>
+                  className={`btn btn-active ${button.color} ${button.bgColor} py-2 mb-3 rounded-full w-full text-center`}>
                   {button.name}
                 </Link>
               ))}
