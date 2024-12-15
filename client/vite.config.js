@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
     include: ["eventemitter3"],
-    exclude: ["'ccip-AUVA6B3H'"],
+    exclude: ["'ccip-AUVA6B3H"],
   },
   build: {
     outDir: "dist",
