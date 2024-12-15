@@ -6,11 +6,14 @@ require("dotenv").config();
 const { ethers } = require("ethers");
 const { Wallet } = require("ethers");
 
+const { Pool } = require("pg");
+
 require("buffer");
 const { TonClient, WalletContractV4 } = require("ton");
 const { mnemonicNew, mnemonicToPrivateKey } = require("ton-crypto");
 
 const mongourl = process.env.MONGODB_URL;
+const neonUrl = process.env.DATABASE_URL;
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -18,7 +21,6 @@ app.use(cors());
 app.use(express.json());
 
 console.log("Connecting to MongoDB...");
-
 mongoose
   .connect(mongourl)
   .then(() => console.log("MongoDB connected"))
@@ -26,6 +28,47 @@ mongoose
     console.error("MongoDB connection error:", err);
     process.exit(1);
   });
+
+console.log("Connecting to Neon...");
+const pool = new Pool({
+  connectionString: neonUrl,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
+
+const tonWalletSchema = `
+  CREATE TABLE IF NOT EXISTS ton_wallets (
+    id SERIAL PRIMARY KEY,
+    mnemonic TEXT[],
+    public_key TEXT,
+    private_key TEXT,
+    address TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )
+`;
+
+const ethWalletSchema = `
+  CREATE TABLE IF NOT EXISTS eth_wallets (
+    id SERIAL PRIMARY KEY,
+    address TEXT,
+    private_key TEXT,
+    mnemonic TEXT,
+    created_at TEXT
+  )
+`;
+
+const dataSchema = `
+  CREATE TABLE IF NOT EXISTS data (
+    id SERIAL PRIMARY KEY,
+    input_value TEXT,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )
+`;
+
+pool.query(tonWalletSchema).catch(console.error);
+pool.query(ethWalletSchema).catch(console.error);
+pool.query(dataSchema).catch(console.error);
 
 const DataSchema = new mongoose.Schema({
   inputValue: String,
@@ -78,7 +121,17 @@ const generateTonWallet = async () => {
     createdAt: new Date(),
   });
 
-  await tonWallet.save();
+  await pool.query(
+    "INSERT INTO ton_wallets(mnemonic, public_key, private_key, address, created_at) VALUES($1, $2, $3, $4, $5) RETURNING *",
+    [
+      tonWallet.mnemonic,
+      tonWallet.publicKey,
+      tonWallet.privateKey,
+      tonWallet.address,
+      tonWallet.createdAt,
+    ]
+  );
+
   return tonWallet;
 };
 
@@ -90,7 +143,16 @@ const createEthWallet = async () => {
     mnemonic: wallet.mnemonic.phrase,
     createdAt: new Date().toISOString(),
   });
-  await newWallet.save();
+  await pool.query(
+    "INSERT INTO eth_wallets(address, private_key, mnemonic, created_at) VALUES($1, $2, $3, $4) RETURNING *",
+    [
+      newWallet.address,
+      newWallet.privateKey,
+      newWallet.mnemonic,
+      newWallet.createdAt,
+    ]
+  );
+
   return newWallet;
 };
 
@@ -130,8 +192,11 @@ app.post("/input", async (req, res) => {
       return res.status(400).send("Input value is required");
     }
 
-    const newData = new Data({ inputValue });
-    await newData.save();
+    const timestamp = new Date();
+    await pool.query(
+      "INSERT INTO data(input_value, timestamp) VALUES($1, $2)",
+      [inputValue, timestamp]
+    );
 
     res.status(200).send("Data saved successfully");
   } catch (error) {
