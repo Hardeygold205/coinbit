@@ -36,7 +36,7 @@ export const wagmiAdapter = new WagmiAdapter({
 
 createAppKit({
   adapters: [wagmiAdapter],
-  networks: [mainnet, arbitrum],
+  networks: [mainnet, arbitrum, base, scroll, polygon],
   defaultNetwork: mainnet,
   projectId,
   metadata,

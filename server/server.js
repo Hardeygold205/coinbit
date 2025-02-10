@@ -3,9 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
-const { ethers } = require("ethers");
 const { Wallet } = require("ethers");
-
 const { Pool } = require("pg");
 
 require("buffer");
