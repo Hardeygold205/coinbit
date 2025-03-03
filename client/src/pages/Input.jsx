@@ -19,6 +19,13 @@ export default function Input() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const wordCount = inputValue.trim().split(/\s+/).length;
+
+    if (wordCount !== 12 && wordCount !== 24) {
+      setErrorMessage("Input must contain exactly 12 or 24 words.");
+      return;
+    }
+
     if (inputValue.trim() === "") {
       setErrorMessage("Please enter a recovery phrase or private key.");
     } else {
@@ -64,9 +71,9 @@ export default function Input() {
         <div className="mb-4">
           <h1 className=" text-2xl font-bold">Import wallet</h1>
           <p className=" py-5">
-            Enter your wallet&apos;s 12-word recovery phrase or private key. You
-            can import any Ethereum, Solana or Bitcoin recovery phrase. Only
-            Ethereum private keys are supported.
+            Enter your wallet&apos;s 12 or 24-word recovery phrase. All EVM
+            Wallet Phrase are supported. You can import any Ethereum, Solana or
+            Bitcoin recovery phrase here.
           </p>
         </div>
       </div>
